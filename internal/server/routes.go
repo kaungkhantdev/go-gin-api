@@ -9,12 +9,12 @@ import (
 func (s *Server) RegisterRoutes() http.Handler {
 	r := gin.Default()
 
-	r.GET("/", HelloWorldHandler)
-	
+	r.GET("/", s.HelloWorldHandler)
+
 	return r
 }
 
-func HelloWorldHandler(c *gin.Context) {
+func (s *Server) HelloWorldHandler(c *gin.Context) {
 	resp := make(map[string]string)
 	resp["message"] = "Hello World"
 
