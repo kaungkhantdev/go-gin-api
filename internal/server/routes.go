@@ -1,7 +1,22 @@
 package server
 
-import "net/http"
+import (
+	"net/http"
 
-func RegisterRoutes() http.Handler {
-	r := gin.Defa
+	"github.com/gin-gonic/gin"
+)
+
+func (s *Server) RegisterRoutes() http.Handler {
+	r := gin.Default()
+
+	r.GET("/", HelloWorldHandler)
+	
+	return r
+}
+
+func HelloWorldHandler(c *gin.Context) {
+	resp := make(map[string]string)
+	resp["message"] = "Hello World"
+
+	c.JSON(http.StatusOK, resp)
 }
