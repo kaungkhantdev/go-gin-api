@@ -1,6 +1,7 @@
 package server
 
 import (
+	"go-gin-api/internal/handlers"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,7 +10,11 @@ import (
 func (s *Server) RegisterRoutes() http.Handler {
 	r := gin.Default()
 
+
 	r.GET("/", s.HelloWorldHandler)
+
+	apiGroup := r.Group("/api")
+	handlers.UserRoutes(apiGroup)
 
 	return r
 }
