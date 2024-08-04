@@ -19,3 +19,10 @@ func (s *UserService) GetAllUsers() ([]models.User, error) {
     return s.repo.GetUsers();
 }
 
+func (s *UserService) GetById(id int) (models.User, error) {
+	return s.repo.GetById(id)
+}
+
+func (s *UserService) CreateUser(data repository.CreateUserData) (models.User) {
+	return s.repo.CreateUser(data)
+}
