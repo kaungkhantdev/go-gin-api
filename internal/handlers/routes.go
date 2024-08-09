@@ -17,4 +17,7 @@ func UserRoutes(router *gin.RouterGroup) {
 
 	// Register routes with userHandler
 	router.GET("/users", userHandler.GetUsers)
+	router.GET("/users/:id", userHandler.GetById)
+	router.POST("/users", userHandler.CreateUser)
+
 }
