@@ -2,6 +2,7 @@ package repository
 
 import (
 	"errors"
+	"fmt"
 	"go-gin-api/internal/models"
 )
 
@@ -48,4 +49,28 @@ func (repo *UserRepository) CreateUser(data CreateUserData) (models.User) {
 
 	return newUser;
 
+}
+
+type PatchUserData struct {
+	Name *string
+	Email *string
+}
+
+func (repo *UserRepository) UpdateUser(id int, data PatchUserData ) ( models.User, error ) {
+	for i, user := range users {
+		if user.ID == id {
+
+			if data.Name != nil {
+				users[i].Name = *data.Name
+			}
+
+			if data.Email != nil {
+				users[i].Email = *data.Email
+			}
+			
+			return users[i], nil
+		}
+	}
+
+	return models.User{}, fmt.Errorf("user with ID %d not found", id)
 }
