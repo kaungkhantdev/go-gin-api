@@ -67,3 +67,36 @@ func (h *UserHandler) CreateUser(c *gin.Context) {
     return
     
 }
+
+func (h *UserHandler) UpdateUser(c *gin.Context) {
+    id := c.Param("id")
+
+    input := models.User{}
+    if err := c.ShouldBindJSON(&input); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+        return
+    }
+
+    intId, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+		return
+	}
+
+    var data repository.PatchUserData
+    if input.Name != "" {
+        data.Name = &input.Name
+    }
+    if input.Email != "" {
+        data.Email = &input.Email
+    }
+    
+
+    user, err := h.userService.UpdateUser(intId, data)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, user)
+}
