@@ -17,4 +17,21 @@ func UserRoutes(router *gin.RouterGroup) {
 
 	// Register routes with userHandler
 	router.GET("/users", userHandler.GetUsers)
+	router.GET("/users/:id", userHandler.GetById)
+	router.POST("/users", userHandler.CreateUser)
+	router.PATCH("/users/:id", userHandler.UpdateUser)
+
+}
+
+func TestRoutes(router *gin.RouterGroup) {
+	testRepo := &repository.TestRepository{}
+	testService := services.NewTestService(testRepo)
+
+	testHandler := NewTestHandler(testService);
+
+	router.GET("/tests", testHandler.GetAll)
+	router.GET("/tests/:id", testHandler.GetById)
+	router.POST("/tests", testHandler.Create)
+	router.PATCH("/tests/:id", testHandler.Update)
+
 }

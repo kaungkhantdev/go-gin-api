@@ -15,6 +15,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	apiGroup := r.Group("/api")
 	handlers.UserRoutes(apiGroup)
+	handlers.TestRoutes(apiGroup)
 
 	return r
 }
